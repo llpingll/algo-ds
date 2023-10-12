@@ -20,8 +20,9 @@ const LinkedList = () => {
         if (head !== null) {     // If element with head already exists
             newNode.next = head; // Assign newNode pointer to existing head
             head = newNode;      // Make newNode new head of list
-        } else {                 // If list is empty, asign head to new element
+        } else {                 // If list is empty, asign head & tail to new element
             head = newNode;
+            tail = newNode;
         }
         size++;
     }
@@ -79,19 +80,18 @@ const Nodee = (val, next = null) => {
     return {val, next}
 }
 
-// let listA = LinkedList();
+let listA = LinkedList();
 
-// listA.prepend("a");
-// listA.prepend("b");
-// listA.prepend("c");
+listA.prepend("a");
+listA.prepend("b");
+listA.prepend("c");
 
 // listA.append("a");
 // listA.append("b");
 // listA.append("c");
 
-// listA.printList();
+listA.printList();
 // console.log(listA.getSize());
-// console.log(listA.getHead());
-// console.log(listA.getTail());
+console.log(listA.getHead());
+console.log(listA.getTail());
 // console.log(listA.atIndex(1));
-// console.log(john.getVal(), john.getNext());
