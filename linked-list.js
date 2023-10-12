@@ -1,7 +1,19 @@
+// Linked list factory
 const LinkedList = () => {
-    const head = null;
-    const size = 0;
-    const tail = null;
+    let head = null;
+    let size = 0;
+    let tail = null;
+
+    const printList = () => {
+        if (head === null) {
+            return console.log("List empty");
+        }
+        let current = head;
+        while (current !== null) {
+            console.log(current.val);
+            current = current.next;
+        }
+    }
 
     const prepend = (val) => {
         const newNode = Nodee(val);
@@ -15,21 +27,12 @@ const LinkedList = () => {
     }
 
     const append = (val) => {
-        // Concept (If you keep track of the tail will the loop be nessissary for appending)?
         const newNode = Nodee(val);
-        // If no list asign new node as start & end
+        // If no list, assign new node as start & end
         if (head === null) {
             head = newNode;
             tail = newNode;
         }
-        
-        // if (head !== null) {        // Else if list already exists, loop & find the last node
-        //     let current = head;
-        //     while (current.next !== null) {
-        //         current = current.next;
-        //     }
-        //     current.next = newNode; // After the loop, current = last node
-        // }
 
         if (head !== null) {        // If list not empty
             tail.next = newNode;    // Assign last element pointer to new node
@@ -46,9 +49,29 @@ const LinkedList = () => {
         return head;
     }
 
-    return { prepend, append, getSize, getHead }
+    const getTail = () => {
+        return tail;
+    }
+
+    const atIndex = (index) => {
+        if (index >= size) {
+            return;
+        }
+        let current = head;
+        for (let i = 0; i < index; i++) {
+            current = current.next;
+        }
+        return current;
+    }
+
+    // const pop = () => {
+
+    // }
+
+    return { prepend, append, getSize, getHead, getTail, atIndex, printList }
 }
 
+// Node factory
 const Nodee = (val, next = null) => {
     let value = val;
     let nextNode = next;
@@ -56,9 +79,19 @@ const Nodee = (val, next = null) => {
     return {val, next}
 }
 
-// const john = Nodee("john");
+// let listA = LinkedList();
 
-// john.val = "Sam";
-// john.next = "Changed";
+// listA.prepend("a");
+// listA.prepend("b");
+// listA.prepend("c");
 
+// listA.append("a");
+// listA.append("b");
+// listA.append("c");
+
+// listA.printList();
+// console.log(listA.getSize());
+// console.log(listA.getHead());
+// console.log(listA.getTail());
+// console.log(listA.atIndex(1));
 // console.log(john.getVal(), john.getNext());
