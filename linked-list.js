@@ -4,17 +4,6 @@ const LinkedList = () => {
     let size = 0;
     let tail = null;
 
-    const printList = () => {
-        if (head === null) {
-            return console.log("List empty");
-        }
-        let current = head;
-        while (current !== null) {
-            console.log(current.val);
-            current = current.next;
-        }
-    }
-
     const prepend = (val) => {
         const newNode = Nodee(val);
         if (head !== null) {     // If element with head already exists
@@ -97,7 +86,21 @@ const LinkedList = () => {
         return index;
     }
 
-    return { prepend, append, getSize, getHead, getTail, atIndex, printList, pop, containsValue, find }
+    const toString = () => {
+        if (head === null) {
+            return console.log("List is empty");
+        } else {
+            let current = head;
+            let formatted = "";
+            while (current !== null) {
+                formatted += `( ${current.val} ) -> `;
+                current = current.next;
+            }
+            return formatted += "null";
+        }
+    }
+
+    return { prepend, append, getSize, getHead, getTail, atIndex, printList, pop, containsValue, find, toString }
 }
 
 // Node factory
@@ -117,12 +120,3 @@ const Nodee = (val, next = null) => {
 // listA.append("a");
 // listA.append("b");
 // listA.append("c");
-
-// listA.printList();
-// console.log(listA.find("1"));
-// console.log(listA.containsValue("d"));
-// listA.printList();
-// console.log(listA.getSize());
-// console.log(listA.getHead());
-// console.log(listA.getTail());
-// console.log(listA.atIndex());
