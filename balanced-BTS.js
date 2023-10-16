@@ -5,16 +5,16 @@
 // Output: A Balanced BST
 //       2
 //     /  \
-//  1     3 
+//   1     3 
 // Explanation: all elements less than 2 are on the left side of 2 , and all the elements greater than 2 are on the right side
 
 // Input: arr[] = {1, 2, 3, 4}
 // Output: A Balanced BST
 //           3
 //         /  \
-//      2    4
-//    /
-// 1
+//        2    4
+//       /
+//     1
 
 
 // PSEUDOCODE
@@ -33,13 +33,16 @@ const tNode = (data, left = null, right = null) => {
 const Tree = (array) => {
 
     const buildTree = (array, start, end) => {
-        // If start > end return null
-        // Assign mid
-        // Assign new node as root
-        // recusivly call buildTree(array, start, mid - 1) on left sub array & assign it to (Current) root.left
-        // recusivly call buildTree(array, mid + 1, end) on right sub array & assign it to (Current) root.right
+        // If node is leaf return null
+        if (start > end) return null;
+        // Else assign mid and newNode as root
+        const mid = (start + end) / 2;
+        const root = tNode(array[mid]);
+        // Assign left and right pointers using recursive calls
+        root.left = buildTree(array, start, mid - 1);
+        root.right = buildTree(array, start, mid - 1);
 
-        // Return root
+        return root;
     }
 
     const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -53,7 +56,7 @@ const Tree = (array) => {
         if (node.left !== null) {
             prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
         }
-    } 
+    }
 
     return {
         buildTree,
