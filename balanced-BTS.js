@@ -16,10 +16,6 @@
 //       /
 //     1
 
-
-// PSEUDOCODE
-const array = [1, 2, 3, 4, 5, 6, 7, 8];
-
 // Node Factory
 const tNode = (data, left = null, right = null) => {
     return {
@@ -30,17 +26,17 @@ const tNode = (data, left = null, right = null) => {
 }
 
 // Tree factory
-const Tree = (array) => {
+const Tree = () => {
 
     const buildTree = (array, start, end) => {
         // If node is leaf return null
         if (start > end) return null;
         // Else assign mid and newNode as root
-        const mid = (start + end) / 2;
-        const root = tNode(array[mid]);
+        const mid = Math.floor((start + end) / 2);
+        let root = tNode(array[mid]);
         // Assign left and right pointers using recursive calls
         root.left = buildTree(array, start, mid - 1);
-        root.right = buildTree(array, start, mid - 1);
+        root.right = buildTree(array, mid + 1, end);
 
         return root;
     }
@@ -63,3 +59,9 @@ const Tree = (array) => {
         prettyPrint,
     }
 }
+
+// Test
+// const array = [1, 2, 3, 4, 5, 6, 7, 8];
+// const treeA = Tree();
+// console.log(treeA);
+// treeA.prettyPrint(treeA.buildTree(array, 0, array.length - 1));
