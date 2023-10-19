@@ -1,21 +1,3 @@
-// Given a sorted array. Write a function that creates a Balanced Binary Search Tree using array elements.
-
-// EXAMPLE
-// Input: arr[] = {1, 2, 3}
-// Output: A Balanced BST
-//       2
-//     /  \
-//   1     3 
-// Explanation: all elements less than 2 are on the left side of 2 , and all the elements greater than 2 are on the right side
-
-// Input: arr[] = {1, 2, 3, 4}
-// Output: A Balanced BST
-//           3
-//         /  \
-//        2    4
-//       /
-//     1
-
 // Node Factory
 const tNode = (data, left = null, right = null) => {
     return {
@@ -27,6 +9,8 @@ const tNode = (data, left = null, right = null) => {
 
 // Tree factory
 const Tree = () => {
+
+    let ROOT = null;
 
     const buildTree = (array, start, end) => {
         // If node is leaf return null
@@ -54,14 +38,32 @@ const Tree = () => {
         }
     }
 
+    const insert = (val, node) => {
+        // Base Case
+        if (node === null) return tNode(val);
+
+        if (val < node.data) {
+            node.left = insert(val, node.left); // Recursively insert in the left subtree and update the left pointer.
+        } else if (val > node.data) {
+            node.right = insert(val, node.right); // Recursively insert in the right subtree and update the right pointer.
+        }
+
+        return node; // This is required because if not the parents pointers would be updated with nothing, thus breaking the links.
+    }
+
     return {
         buildTree,
         prettyPrint,
+        insert,
+        ROOT,
     }
 }
 
 // Test
-// const array = [1, 2, 3, 4, 5, 6, 7, 8];
-// const treeA = Tree();
-// console.log(treeA);
-// treeA.prettyPrint(treeA.buildTree(array, 0, array.length - 1));
+const array = [1, 2, 3, 4, 5, 6, 7, 8];
+const treeA = Tree();
+treeA.ROOT = treeA.buildTree(array, 0, array.length - 1);
+treeA.prettyPrint(treeA.ROOT);
+// console.log(treeA.ROOT.data);
+treeA.insert(0, treeA.ROOT);
+treeA.prettyPrint(treeA.ROOT);
